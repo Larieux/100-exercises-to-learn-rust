@@ -10,8 +10,8 @@
 //
 // Use only what you learned! No loops yet, so you'll have to use recursion!
 
-fn factorial(n: u32) {
-	n!
+fn factorial(n: u32) -> u32 {
+	(1..=n).product()
 }
 
 #[cfg(test)]

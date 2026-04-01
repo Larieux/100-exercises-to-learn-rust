@@ -11,21 +11,7 @@ pub struct Ticket {
 
 impl Ticket {
     pub fn new(title: String, description: String, status: String) -> Ticket {
-        if title.is_empty() {
-            panic!("Title cannot be empty");
-        }
-        if title.len() > 50 {
-            panic!("Title cannot be longer than 50 bytes");
-        }
-        if description.is_empty() {
-            panic!("Description cannot be empty");
-        }
-        if description.len() > 500 {
-            panic!("Description cannot be longer than 500 bytes");
-        }
-        if status != "To-Do" && status != "In Progress" && status != "Done" {
-            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
-        }
+        
 
         Ticket {
             title,
@@ -33,6 +19,12 @@ impl Ticket {
             status,
         }
     }
+
+	fn set_title()
+
+	fn set_description()
+
+	fn set_status()
 
     pub fn title(&self) -> &String {
         &self.title
@@ -45,6 +37,26 @@ impl Ticket {
     pub fn status(&self) -> &String {
         &self.status
     }
+
+	static fn check_title(title: &String) {
+		assert !(!title.is_empty(), "Title cannot be empty");
+		assert !(title.len() < 50, "Title cannot be longer than 50 bytes");
+	}
+
+	fn check_description(description: &String) {
+		assert !(!description.is_empty(), "Description cannot be empty");
+		assert !(description.len() < 500, "Description cannot be longer than 500 bytes");
+	}
+	
+	fn check_status(status: &String) {
+		assert !(match status.as_str() {
+			"To-Do" => true,
+			"In Progress" => true,
+			"Done" => true,
+			_ => false
+		}, "Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
+	}
+
 }
 
 #[cfg(test)]

@@ -11,7 +11,9 @@ pub struct Ticket {
 
 impl Ticket {
     pub fn new(title: String, description: String, status: String) -> Ticket {
-        
+		Self::check_title_borrow(&title);
+		Self::check_description_borrow(&description);
+		Self::check_status_borrow(&status);
 
         Ticket {
             title,
@@ -20,11 +22,20 @@ impl Ticket {
         }
     }
 
-	fn set_title()
+	pub fn set_title(&mut self, title: String) {
+		Self::check_title_borrow(&title);
+		self.title = title;
+	}
 
-	fn set_description()
+	pub fn set_description(&mut self, description: String) {
+		Self::check_description_borrow(&description);
+		self.description = description;
+	}
 
-	fn set_status()
+	pub fn set_status(&mut self, status: String) {
+		Self::check_status_borrow(&status);
+		self.status = status;
+	}
 
     pub fn title(&self) -> &String {
         &self.title
@@ -38,17 +49,17 @@ impl Ticket {
         &self.status
     }
 
-	static fn check_title(title: &String) {
+	fn check_title_borrow(title: &String) {
 		assert !(!title.is_empty(), "Title cannot be empty");
 		assert !(title.len() < 50, "Title cannot be longer than 50 bytes");
 	}
 
-	fn check_description(description: &String) {
+	fn check_description_borrow(description: &String) {
 		assert !(!description.is_empty(), "Description cannot be empty");
 		assert !(description.len() < 500, "Description cannot be longer than 500 bytes");
 	}
 	
-	fn check_status(status: &String) {
+	fn check_status_borrow(status: &String) {
 		assert !(match status.as_str() {
 			"To-Do" => true,
 			"In Progress" => true,
@@ -56,6 +67,28 @@ impl Ticket {
 			_ => false
 		}, "Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
 	}
+
+	// fn check_title_own(title: String) -> String {
+	// 	assert !(!title.is_empty(), "Title cannot be empty");
+	// 	assert !(title.len() < 50, "Title cannot be longer than 50 bytes");
+	// 	title
+	// }
+
+	// fn check_description_own(description: String) -> String {
+	// 	assert !(!description.is_empty(), "description cannot be empty");
+	// 	assert !(description.len() < 500, "description cannot be longer than 50 bytes");
+	// 	description
+	// }
+
+	// fn check_status_own(status: String) -> String {
+	// 	assert !(match status.as_str() {
+	// 		"To-Do" => true,
+	// 		"In Progress" => true,
+	// 		"Done" => true,
+	// 		_ => false
+	// 	}, "Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
+	// 	status
+	// }
 
 }
 
